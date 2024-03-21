@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sideral DOGS</title>
+    <!-- CDN Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="cover-container d-flex w-100 h-100 p-3 mx auto flex-column">
+        <header class="mb-auto">
+            <nav class="navbar navbar-expand-lg navbar-light bg-success rounded-pill">
+                <a class="navbar-brand" href="#">
+                    <img class="ms-3" src="https://www.freeiconspng.com/thumbs/dog-icon/dog-icon-4.png" width="30"
+                        height="30" class="d-inline-block align-top" alt="">
+                    SIDERAL DOGS
+                </a>
+            </nav>
+        </header>
+        <main class="px-3">
+            <div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-center justify-content-center">
+                <div class="list-group">
+                    <div class="text-bg-success me-md-3 pt-3 px-3 pt-md-5 text-center rounded">
+                        <div class="my-3 py-3">
+                            <h1 class="mb-5 text-dark">Listado de razas y sub-razas encontrados en la BD:</h1>
+                            <div class="mb-5">
+                                <span id="breedCount" class="display-7"></span><br/>
+                                <span id="subBreedCount" class="display-7"></span>
+                            </div>
+                            
+                            <div class="bg-body-secondary shadow-sm mx-auto"
+                                style="width: 100%; height: 600px; border-radius: 21px 21px 0 0;">
+                                <div
+                                    class="d-flex flex-column flex-md-row p-4 py-md-5 align-items-center justify-content-center">
+                                    <div id="dogBreeds" class="list-group overflow-auto" style="height: 500px; width: 90%;">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- JS Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script src="functions.js"></script>
+</body>
+
+</html>
