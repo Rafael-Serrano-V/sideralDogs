@@ -14,36 +14,61 @@ const generateHTML = (breeds) => {
     //Iteramos sobre cada raza
     for (let breed in breeds) {
         html += `
-        <a href="#" class="list-group-item list-group-item-action list-group-item-success d-flex py-3" aria-current="true">
-        <div class="d-flex w-100 justify-content-between">
+        <div class="d-flex w-100 list-group-item list-group-item-action list-group-item-success d-flex py-3">
             <div>
-                <span class="mb-2 fw-bold" style="text-transform: uppercase;">${breed}</span>`;
+            <a href="#" class="breed text-decoration-none text-success" data-breed="${breed}" aria-current="true" data-bs-toggle="modal" data-bs-target="#dogModal"><span class="mb-2 fw-bold" style="text-transform: uppercase;">${breed}</span></a>`;
         let subBreeds = breeds[breed];
 
         //Si la raza tiene sub-razas, iterar sobre ellas
         if (subBreeds.length > 0) {
             html += `<hr><strong>Sub-razas:</strong>`;
             for (let subBreed of subBreeds) {
-                html += `<p style= "text-align: left;">• ${subBreed}</p>`;
+                html += `<a href="#" class="subBreed text-decoration-none text-success" data-breed="${breed}" data-subBreed="${subBreed}" data-bs-toggle="modal" data-bs-target="#dogModal"><p style= "text-align: left;">• ${subBreed}</p>`;
                 subBreedCount++;
             }
-            
         }
-        html += `</div></div></a>`;
+        html += `</div></div>`;
         breedCount++;
     }
-    return {html, breedCount, subBreedCount};
+    return { html, breedCount, subBreedCount };
 };
 
 //Función principal
 const fetchDogBreedsAll = async () => {
     const breeds = await getDogBreeds();
-    const  {html, breedCount, subBreedCount} = generateHTML(breeds);
+    const { html, breedCount, subBreedCount } = generateHTML(breeds);
 
     //Mostramos los resultados en la vista HTML
     document.getElementById("dogBreeds").innerHTML = html;
-    document.getElementById("breedCount").innerHTML = `Total de razas: <span class="badge rounded-pill text-bg-dark">${breedCount}</span>`;
-    document.getElementById("subBreedCount").innerHTML = `Total de sub-razas: <span class="badge rounded-pill text-bg-dark">${subBreedCount}</span>`;
+    document.getElementById(
+        "breedCount"
+    ).innerHTML = `Total de razas: <span class="badge rounded-pill text-bg-dark">${breedCount}</span>`;
+    document.getElementById(
+        "subBreedCount"
+    ).innerHTML = `Total de sub-razas: <span class="badge rounded-pill text-bg-dark">${subBreedCount}</span>`;
+
+    //Agregamos el evento click a cada raza y subraza
+    document.querySelectorAll(".breed, .subBreed").forEach((item) => {
+        item.addEventListener("click", async (event) => {
+            event.preventDefault();
+            let target = event.target;
+            while (!target.dataset.breed) {
+                target = target.parentElement;
+            }
+            let breed = target.dataset.breed;
+            let subBreed = target.dataset.subbreed;
+            let url = `https://dog.ceo/api/breed/${breed}${subBreed ? `/${subBreed}` : ""
+                }/images/random`;
+
+            const response = await fetch(url);
+            const data = await response.json();
+
+            document.getElementById("dogImage").src = data.message;
+        });
+    });
 };
 
 fetchDogBreedsAll();
+
+
+
